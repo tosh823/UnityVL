@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 using JsonFx.Json;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor;
 
 namespace Unity3D2Babylon
 {
@@ -166,3 +168,5 @@ namespace Unity3D2Babylon
         }
     }
 }
+
+#endif
