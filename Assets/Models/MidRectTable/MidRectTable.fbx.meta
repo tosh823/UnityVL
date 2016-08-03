@@ -16,12 +16,15 @@ ModelImporter:
     2300000: LeftLeg
     2300002: RightLeg
     2300004: TableBase
+    2300006: //RootNode
     3300000: LeftLeg
     3300002: RightLeg
     3300004: TableBase
+    3300006: //RootNode
     4300000: LeftLeg
     4300002: RightLeg
     4300004: TableBase
+    4300006: MediumTableMk2
   materials:
     importMaterials: 1
     materialName: 0
@@ -29,7 +32,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

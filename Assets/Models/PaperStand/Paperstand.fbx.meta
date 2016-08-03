@@ -13,14 +13,17 @@ ModelImporter:
     400004: SmallMagazineStand
     2300000: Door
     2300002: SmallMagazineStand
+    2300004: //RootNode
     3300000: Door
     3300002: SmallMagazineStand
+    3300004: //RootNode
     4300000: Door
     4300002: SmallMagazineStand
+    4300004: PaperStand
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

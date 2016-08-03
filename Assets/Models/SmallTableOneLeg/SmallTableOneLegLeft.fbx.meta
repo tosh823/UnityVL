@@ -13,14 +13,17 @@ ModelImporter:
     400004: Table
     2300000: Leg
     2300002: Table
+    2300004: //RootNode
     3300000: Leg
     3300002: Table
+    3300004: //RootNode
     4300000: Leg
     4300002: Table
+    4300004: SideTabeLeft
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

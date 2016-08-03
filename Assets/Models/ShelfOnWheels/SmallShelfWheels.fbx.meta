@@ -22,16 +22,19 @@ ModelImporter:
     2300004: Wheel2
     2300006: Wheel3
     2300008: Wheel4
+    2300010: //RootNode
     3300000: Shelf
     3300002: Wheel1
     3300004: Wheel2
     3300006: Wheel3
     3300008: Wheel4
+    3300010: //RootNode
     4300000: Wheel4
     4300002: Wheel3
     4300004: Wheel2
     4300006: Wheel1
     4300008: Shelf
+    4300010: MiniShelfMk2
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +42,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

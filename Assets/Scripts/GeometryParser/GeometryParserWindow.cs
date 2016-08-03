@@ -22,7 +22,8 @@ namespace GeometryParser {
             GUILayout.Label("Geometry Parser", EditorStyles.boldLabel);
             if (GUILayout.Button("Select folder", GUILayout.ExpandWidth(false))) {
                 //string dir = EditorUtility.OpenFolderPanel("Choose destination folder", "", "");
-                //Debug.Log("Export pressed " + dir);
+                Parser parser = new Parser("D:/Projects/Web/VL/assets/");
+                parser.Launch();
             }
             GUILayout.EndVertical();
         }

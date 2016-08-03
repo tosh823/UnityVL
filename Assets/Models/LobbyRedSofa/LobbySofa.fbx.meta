@@ -13,18 +13,21 @@ ModelImporter:
     400004: SofaTop
     2300000: SofaBase
     2300002: SofaTop
+    2300004: //RootNode
     3300000: SofaBase
     3300002: SofaTop
+    3300004: //RootNode
     4300000: SofaBase
     4300002: SofaTop
+    4300004: LobbySofa
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 2
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

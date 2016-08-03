@@ -22,16 +22,19 @@ ModelImporter:
     2300004: Leg3
     2300006: Leg4
     2300008: TableBase
+    2300010: //RootNode
     3300000: Leg1
     3300002: Leg2
     3300004: Leg3
     3300006: Leg4
     3300008: TableBase
+    3300010: //RootNode
     4300000: Leg4
     4300002: Leg3
     4300004: Leg2
     4300006: Leg1
     4300008: TableBase
+    4300010: MediumTableMk1
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +42,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

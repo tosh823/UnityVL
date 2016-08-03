@@ -19,14 +19,17 @@ ModelImporter:
     2300002: GlassLeft
     2300004: GlassRight
     2300006: Lamp
+    2300008: //RootNode
     3300000: CafeBar
     3300002: GlassLeft
     3300004: GlassRight
     3300006: Lamp
+    3300008: //RootNode
     4300000: GlassLeft
     4300002: GlassRight
     4300004: Lamp
     4300006: CafeBar
+    4300008: FoodBar
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,7 +37,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

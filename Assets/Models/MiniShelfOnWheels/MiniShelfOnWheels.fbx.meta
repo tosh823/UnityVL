@@ -25,18 +25,21 @@ ModelImporter:
     2300006: ShelfBase
     2300008: TopLeftWhee;
     2300010: TopRightWheel
+    2300012: //RootNode
     3300000: BackLeftWheel
     3300002: BackRightWheel
     3300004: Handle
     3300006: ShelfBase
     3300008: TopLeftWhee;
     3300010: TopRightWheel
+    3300012: //RootNode
     4300000: BackLeftWheel
     4300002: BackRightWheel
     4300004: TopLeftWhee;
     4300006: TopRightWheel
     4300008: Handle
     4300010: ShelfBase
+    4300012: MiniShelfMk1
   materials:
     importMaterials: 1
     materialName: 0
@@ -44,7 +47,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
