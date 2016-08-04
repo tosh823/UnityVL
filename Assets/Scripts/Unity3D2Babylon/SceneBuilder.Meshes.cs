@@ -174,6 +174,7 @@ namespace Unity3D2Babylon
                 {
                     if (mesh.subMeshCount > 1) // Multimaterials
                     {
+                        Debug.Log("Found multimaterial object: " + mesh.name + " with shared material, named: " + renderer.sharedMaterial.name);
                         BabylonMultiMaterial bMultiMat;
                         if (!multiMatDictionary.ContainsKey(renderer.sharedMaterial.name))
                         {
