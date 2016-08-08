@@ -79,8 +79,10 @@ namespace Export3JS {
             //mesh.matrix = Utils.getMatrixAsArray(gameObject.transform.localToWorldMatrix);
             // Space
             mesh.position = getPosition(gameObject);
-            mesh.rotation = getRotation(gameObject);
-            mesh.quaternion = getQuartenion(gameObject);
+            //mesh.rotation = getRotation(gameObject);
+            bool flipped = (gameObject.transform.parent == null ? true : false);
+            //bool flipped = true;
+            mesh.quaternion = getQuartenion(gameObject, flipped);
             mesh.scale = getScale(gameObject);
 
             if (gameObject.GetComponent<Renderer>() != null) {
@@ -108,8 +110,10 @@ namespace Export3JS {
             //light.matrix = Utils.getMatrixAsArray(gameObject.transform.localToWorldMatrix);
             // Space
             light.position = getPosition(gameObject);
-            light.rotation = getRotation(gameObject);
-            light.quaternion = getQuartenion(gameObject);
+            //light.rotation = getRotation(gameObject);
+            bool flipped = (gameObject.transform.parent == null ? true : false);
+            //bool flipped = true;
+            light.quaternion = getQuartenion(gameObject, flipped);
             light.scale = getScale(gameObject);
 
             light.color = Utils.getIntColor(lightComponent.color);
@@ -130,8 +134,10 @@ namespace Export3JS {
             //group.matrix = Utils.getMatrixAsArray(gameObject.transform.localToWorldMatrix);
             // Space
             group.position = getPosition(gameObject);
-            group.rotation = getRotation(gameObject);
-            group.quaternion = getQuartenion(gameObject);
+            //group.rotation = getRotation(gameObject);
+            bool flipped = (gameObject.transform.parent == null ? true : false);
+            //bool flipped = false;
+            group.quaternion = getQuartenion(gameObject, flipped);
             group.scale = getScale(gameObject);
 
             // Parse children
@@ -151,8 +157,10 @@ namespace Export3JS {
             //camera.matrix = Utils.getMatrixAsArray(gameObject.transform.localToWorldMatrix);
             // Space
             camera.position = getPosition(gameObject);
-            camera.rotation = getRotation(gameObject);
-            camera.quaternion = getQuartenion(gameObject);
+            //camera.rotation = getRotation(gameObject);
+            bool flipped = (gameObject.transform.parent == null ? true : false);
+            //bool flipped = true;
+            camera.quaternion = getQuartenion(gameObject, flipped);
             camera.scale = getScale(gameObject);
 
             camera.fov = cameraComponent.fieldOfView;
@@ -632,24 +640,32 @@ namespace Export3JS {
             float[] position = new float[3] {
                 unityPosition.x,
                 unityPosition.y,
-                unityPosition.z
+                (-1) * unityPosition.z
             };
             return position;
         }
 
         private float[] getRotation(GameObject gameObject) {
             float rad = Mathf.PI / 180;
-            Vector3 unityRotation = gameObject.transform.localRotation.eulerAngles;
+            Vector3 unityRotation = gameObject.transform.eulerAngles;
+            Debug.Log(gameObject.name + "Euler angles: " + unityRotation);
             float[] rotation = new float[3] {
-                (unityRotation.x + 180) * rad,
-                (unityRotation.y + 180) * rad,
-                (unityRotation.z + 180) * rad
+                unityRotation.x * rad,
+                unityRotation.y * rad,
+                unityRotation.z * rad
             };
             return rotation;
         }
 
-        private float[] getQuartenion(GameObject gameObject) {
+        private float[] getQuartenion(GameObject gameObject, bool flipped = false) {
             Quaternion unityQuartenion = gameObject.transform.localRotation;
+            Quaternion flipX = Quaternion.Euler(180, 0, 0);
+            Quaternion flipY = Quaternion.Euler(0, 180, 0);
+            Quaternion flipZ = Quaternion.Euler(0, 0, 180);
+            if (flipped) {
+                /*unityQuartenion *= flipY;
+                Debug.Log("Flipping " + gameObject.name);*/
+            }
             float[] quartenion = new float[4] {
                 unityQuartenion.x,
                 unityQuartenion.y,
