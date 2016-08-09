@@ -17,9 +17,9 @@ namespace Export3JS.Model {
         public string uuid;
         public string name;
         public string type;
-        //public float[] matrix;
+        public float[] matrix;
         public float[] position;
-        //public float[] rotation;
+        public float[] rotation;
         public float[] quaternion;
         public float[] scale;
         public List<Object3JS> children;
