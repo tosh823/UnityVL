@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e913652983acfc14d8c6f3ba4bdd05a5
-timeCreated: 1469428982
+guid: 998e08d1dc42d5b40b05e329fc265b61
+timeCreated: 1470832911
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,15 +9,15 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Window
+    4300000: GlassPanel
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 2
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
