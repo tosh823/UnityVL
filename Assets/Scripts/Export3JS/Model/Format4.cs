@@ -21,4 +21,14 @@ namespace Export3JS.Model {
             @object = new Object3JS();
         }
     }
+
+    public class TagsFormat {
+        public Metadata3JS metadata;
+        public Dictionary<string, List<string>> tags;
+
+        public TagsFormat() {
+            metadata = new Metadata3JS();
+            tags = new Dictionary<string, List<string>>();
+        }
+    }
 }

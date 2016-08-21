@@ -15,6 +15,7 @@ namespace Export3JS {
         public bool exportMeshes;
         public bool exportDisabled;
         public bool castShadows;
+        public string[] tags;
     }
 
     public class Exporter {
@@ -23,6 +24,8 @@ namespace Export3JS {
         private int objectTotal;
         private int objectsParsed;
         private Format4 content;
+        private TagsFormat tags;
+        private bool checkTags;
         private Dictionary<string, Material> materials;
         private Dictionary<string, Material[]> multiMaterials;
         private Dictionary<string, Mesh> geometries;
@@ -32,6 +35,7 @@ namespace Export3JS {
             materials = new Dictionary<string, Material>();
             multiMaterials = new Dictionary<string, Material[]>();
             geometries = new Dictionary<string, Mesh>();
+            checkTags = false;
         }
 
         public void Export() {
@@ -39,8 +43,11 @@ namespace Export3JS {
             objectsParsed = 0;
             parseScene();
             string json = JsonConvert.SerializeObject(content, Formatting.Indented);
+            string tagsJSON = JsonConvert.SerializeObject(tags, Formatting.Indented);
             string filename = SceneManager.GetActiveScene().name + ".json";
+            string tagsFilename = SceneManager.GetActiveScene().name + "Tags.json";
             System.IO.File.WriteAllText(options.dir + filename, json);
+            System.IO.File.WriteAllText(options.dir + tagsFilename, tagsJSON);
             Debug.Log("Three.JS Exporter completed, " + DateTime.Now.ToLongTimeString());
             ExporterWindow.ClearProgress();
         }
@@ -57,7 +64,15 @@ namespace Export3JS {
         }
 
         private void parseScene() {
+            // Create content file
             content = new Format4();
+            if (options.tags.Length > 0) {
+                tags = new TagsFormat();
+                foreach (string tag in options.tags) {
+                    tags.tags.Add(tag, new List<string>());
+                }
+                checkTags = true;
+            }
             // Create base scene
             Scene3JS scene = new Scene3JS();
             scene.name = SceneManager.GetActiveScene().name;
@@ -106,6 +121,10 @@ namespace Export3JS {
                 }
                 else {
                     obj = createGroup(gameObject);
+                }
+                // Checking tags
+                if (checkTags && Utils.arraryContainsValue(options.tags, gameObject.tag)) {
+                    tags.tags[gameObject.tag].Add(obj.uuid);
                 }
                 updateProgress();
                 return obj;
