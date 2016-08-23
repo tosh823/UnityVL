@@ -95,6 +95,7 @@ ModelImporter:
     100174: LiftPanel1Floor
     100176: LiftPanel2Floor
     100178: LiftPanelCafe
+    100180: Hemi
     400000: //RootNode
     400002: ColumnA1
     400004: ColumnA2
@@ -185,6 +186,7 @@ ModelImporter:
     400174: LiftPanel1Floor
     400176: LiftPanel2Floor
     400178: LiftPanelCafe
+    400180: Hemi
     2300000: ColumnA1
     2300002: ColumnA2
     2300004: ColumnA3
