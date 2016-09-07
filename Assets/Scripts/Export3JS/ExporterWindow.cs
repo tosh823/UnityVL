@@ -31,6 +31,8 @@ namespace Export3JS {
             options.castShadows = false;
             options.tags = new string[0];
             selectTags = false;
+            options.writePNGTextures = false;
+            options.minifyJSON = true;
         }
 
         void OnGUI() {
@@ -39,7 +41,7 @@ namespace Export3JS {
             exportAll = options.exportLights && options.exportMeshes && options.exportCameras && options.exportDisabled;
 
             GUILayout.BeginVertical();
-            GUILayout.Label("Options", EditorStyles.boldLabel);
+            GUILayout.Label("Export options", EditorStyles.boldLabel);
             GUILayout.Label("Choose what to export:", EditorStyles.boldLabel);
             if (EditorGUILayout.Toggle("All", exportAll)) {
                 options.exportCameras = true;
@@ -51,11 +53,7 @@ namespace Export3JS {
             options.exportCameras = EditorGUILayout.Toggle("Cameras", options.exportCameras);
             options.exportLights = EditorGUILayout.Toggle("Lights", options.exportLights);
             options.exportDisabled = EditorGUILayout.Toggle("Disabled GameObjects", options.exportDisabled);
-            EditorGUILayout.Space();
-            GUILayout.Label("Shadows", EditorStyles.boldLabel);
-            options.castShadows = EditorGUILayout.Toggle("Cast shadows", options.castShadows);
-            EditorGUILayout.Space();
-            selectTags = EditorGUILayout.Foldout(selectTags, "Tags");
+            selectTags = EditorGUILayout.Foldout(selectTags, new GUIContent("Tags", "Create list of UUIDs, matching selected tags"));
             if (selectTags) {
                 int count = options.tags.Length;
                 count = EditorGUILayout.IntField("Size", count);
@@ -64,6 +62,13 @@ namespace Export3JS {
                     options.tags[i] = EditorGUILayout.TagField("Tag " + i, options.tags[i]);
                 }
             }
+            EditorGUILayout.Space();
+            GUILayout.Label("Shadows", EditorStyles.boldLabel);
+            options.castShadows = EditorGUILayout.Toggle("Cast shadows", options.castShadows);
+            EditorGUILayout.Space();
+            GUILayout.Label("Other settings", EditorStyles.boldLabel);
+            options.writePNGTextures = EditorGUILayout.Toggle(new GUIContent("Convert textures", "Convert unsuported textures to PNG"), options.writePNGTextures);
+            options.minifyJSON = EditorGUILayout.Toggle("Minify JSON", options.minifyJSON);
             EditorGUILayout.Space();
             GUILayout.Label("Specify output location:", EditorStyles.boldLabel);
             GUILayout.BeginHorizontal();

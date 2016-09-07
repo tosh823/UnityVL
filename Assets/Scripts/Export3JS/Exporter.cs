@@ -15,7 +15,9 @@ namespace Export3JS {
         public bool exportMeshes;
         public bool exportDisabled;
         public bool castShadows;
+        public bool writePNGTextures;
         public string[] tags;
+        public bool minifyJSON;
     }
 
     public class Exporter {
@@ -47,18 +49,19 @@ namespace Export3JS {
                 NullValueHandling = NullValueHandling.Ignore
             };
             // Write content
-            string json = JsonConvert.SerializeObject(content, Formatting.Indented, settings);
+            Formatting jsonFormatting = (options.minifyJSON) ? Formatting.None : Formatting.Indented;
+            string json = JsonConvert.SerializeObject(content, jsonFormatting, settings);
             string filename = SceneManager.GetActiveScene().name + ".json";
             System.IO.File.WriteAllText(options.dir + filename, json);
             // Write tags data if present
             if (tags != null && !tags.isEmpty()) {
-                string tagsJSON = JsonConvert.SerializeObject(tags, Formatting.Indented);
+                string tagsJSON = JsonConvert.SerializeObject(tags, jsonFormatting);
                 string tagsFilename = SceneManager.GetActiveScene().name + "Tags.json";
                 System.IO.File.WriteAllText(options.dir + tagsFilename, tagsJSON);
             }
             // Write lights data if present
             if (!lights.isEmpty()) {
-                string lightsJSON = JsonConvert.SerializeObject(lights, Formatting.Indented);
+                string lightsJSON = JsonConvert.SerializeObject(lights, jsonFormatting);
                 string lightsFilename = SceneManager.GetActiveScene().name + "LightsConfig.json";
                 System.IO.File.WriteAllText(options.dir + lightsFilename, lightsJSON);
             }
@@ -493,7 +496,9 @@ namespace Export3JS {
             }
             // Opacity and wireframe
             matJS.opacity = mat.color.a;
-            matJS.transparent = (mat.color.a < 1f);
+            // 0 = Opaque, 1 = Cutout, 2 = Fade, 3 = Transparent.
+            // (At the time of version 5.4.0f3)
+            matJS.transparent = (mat.GetFloat("_Mode") != 0); 
             matJS.wireframe = false;
 
             content.materials.Add(matJS);
@@ -545,7 +550,12 @@ namespace Export3JS {
             Image3JS jsImg = new Image3JS();
             // Copying the texture file
             string relativePath = AssetDatabase.GetAssetPath(tex);
-            string url = Utils.copyTexture(relativePath, options.dir);
+			string url = null;
+            if (options.writePNGTextures && !Utils.isFormatSupported(relativePath)) {
+                url = Utils.writeTextureAsPNG(tex, relativePath, options.dir);
+            } else {
+                url = Utils.copyTexture(relativePath, options.dir);
+            }
             if (!string.IsNullOrEmpty(url)) {
                 jsImg.url = url;
                 jsText.image = jsImg.uuid;
