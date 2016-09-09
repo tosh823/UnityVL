@@ -1,15 +1,27 @@
 fileFormatVersion: 2
-guid: 6824a02a2e78eb745896bddbe6e5afba
-timeCreated: 1473340213
+guid: 6eefceb16ced6244d881dce561d00f4c
+timeCreated: 1473409554
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: ChairMk2
+    100000: StuffAngleStand
+    100002: //RootNode
+    100004: StuffBarBig
+    100006: StuffBarSmall
+    400000: StuffAngleStand
+    400002: //RootNode
+    400004: StuffBarBig
+    400006: StuffBarSmall
+    2300000: StuffAngleStand
+    2300002: StuffBarBig
+    2300004: StuffBarSmall
+    3300000: StuffAngleStand
+    3300002: StuffBarBig
+    3300004: StuffBarSmall
+    4300000: StuffBarSmall
+    4300002: StuffAngleStand
+    4300004: StuffBarBig
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,7 +46,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.48
+    globalScale: 1.2
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
