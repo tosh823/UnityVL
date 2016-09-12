@@ -42,6 +42,7 @@ namespace Export3JS {
         }
 
         public void Export() {
+            Debug.Log("Three.JS Exporter started, " + DateTime.Now.ToLongTimeString());
             objectTotal = UnityEngine.Object.FindObjectsOfType<GameObject>().Length;
             objectsParsed = 0;
             parseScene();
@@ -452,11 +453,14 @@ namespace Export3JS {
             if (mat.HasProperty("_EmissionColor")) {
                 mat.EnableKeyword("_EMISSION");
                 matJS.emissive = Utils.getIntColor(mat.GetColor("_EmissionColor"));
+                matJS.emissiveIntensity = 1.0f;
             }
             // Values
             if (mat.HasProperty("_Emission")) {
                 // Standrad shader doesn't have this value in Unity 5 :(
-                matJS.emissiveIntensity = mat.GetFloat("_Emission");
+                // So set intensity of emission along with color 
+                //matJS.emissiveIntensity = mat.GetFloat("_Emission");
+                //matJS.emissiveIntensity = 1.0f;
             }
             if (mat.HasProperty("_Shininess")) {
                 matJS.shininess = mat.GetFloat("_Shininess");
@@ -511,7 +515,7 @@ namespace Export3JS {
             string multName = string.Empty;
             foreach (Material mat in mats) {
                 string uuid = string.Empty;
-                multName += Utils.capitalizeFirstSymbol(mat.name.Substring(0, 5));
+                multName += Utils.capitalizeFirstSymbol(mat.name.Substring(0, mat.name.Length / 2));
                 if (Utils.dictContainsValue(out uuid, materials, mat)) {
                     // If we already had the same material, find it
                     Material3JS existingMatJS = content.materials.Find(x => (x.uuid.Equals(uuid)));
