@@ -14,9 +14,16 @@ namespace WayPointMap {
         }
     }
 
+    public class Format3 {
+        public List<WayPointModel> wayPoints;
+        public Format3() {
+            wayPoints = new List<WayPointModel>();
+        }
+    }
+
     public class Map {
 
-        private List<WayPointModel> wayPoints;
+        private Format3 content;
         private string dir;
 
         public Map(string directory) {
@@ -30,23 +37,21 @@ namespace WayPointMap {
                 NullValueHandling = NullValueHandling.Ignore
             };
             Formatting jsonFormatting = Formatting.Indented;
-            string json = JsonConvert.SerializeObject(wayPoints, jsonFormatting, settings);
-            string filename = SceneManager.GetActiveScene().name + "_Navigation" + ".json";
+            string json = JsonConvert.SerializeObject(content, jsonFormatting, settings);
+            string filename = SceneManager.GetActiveScene().name + "Navigation" + ".json";
             System.IO.File.WriteAllText(dir + filename, json);
             Debug.Log("Navigator completed, " + DateTime.Now.ToLongTimeString());
         }
 
         private void parseScene() {
-            wayPoints = new List<WayPointModel>();
+            content = new Format3();
             GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
             foreach (GameObject gameObject in rootObjects) {
                 parseObject(gameObject);
             }
-            Debug.Log(wayPoints.Count);
         }
 
         private void parseObject(GameObject gameObject) {
-
             if (gameObject.GetComponent<WayPoint>() != null) {
                 WayPoint wayPoint = gameObject.GetComponent<WayPoint>();
                 WayPointModel model = new WayPointModel();
@@ -55,7 +60,7 @@ namespace WayPointMap {
                 foreach (WayPoint neighbor in wayPoint.neighbors) {
                     model.links.Add(neighbor.name, (int)Vector3.Distance(wayPoint.transform.position, neighbor.transform.position));
                 }
-                wayPoints.Add(model);
+                content.wayPoints.Add(model);
             }
             
             if (gameObject.transform.childCount > 0) {
