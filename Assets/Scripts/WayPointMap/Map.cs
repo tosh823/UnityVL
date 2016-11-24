@@ -7,10 +7,15 @@ using Newtonsoft.Json;
 namespace WayPointMap {
 
     public class WayPointModel {
-        public string name;
-        public Dictionary<string, int> links;
-        public WayPointModel() {
 
+        public string name;
+        public string description;
+        public string shelfFrom;
+        public string shelfTo;
+        public Dictionary<string, int> links;
+
+        public WayPointModel() {
+            links = new Dictionary<string, int>();
         }
     }
 
@@ -56,7 +61,9 @@ namespace WayPointMap {
                 WayPoint wayPoint = gameObject.GetComponent<WayPoint>();
                 WayPointModel model = new WayPointModel();
                 model.name = wayPoint.name;
-                model.links = new Dictionary<string, int>();
+                model.description = wayPoint.description;
+                model.shelfFrom = wayPoint.shelfFrom;
+                model.shelfTo = wayPoint.shelfTo;
                 foreach (WayPoint neighbor in wayPoint.neighbors) {
                     model.links.Add(neighbor.name, (int)Vector3.Distance(wayPoint.transform.position, neighbor.transform.position));
                 }
