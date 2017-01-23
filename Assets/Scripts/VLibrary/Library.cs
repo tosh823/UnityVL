@@ -13,13 +13,16 @@ namespace VLibrary {
         }
 
         void Update() {
-
+            if (Input.GetKeyUp(KeyCode.Escape) && !orbitCamera.enabled) {
+                avatar.enableControl(false);
+                orbitCamera.enabled = true;
+            }
         }
 
         public void changeCamera() {
             if (orbitCamera.enabled) {
-                orbitCamera.enabled = false;
                 avatar.enableControl(true);
+                orbitCamera.enabled = false;
             }
             else {
                 avatar.enableControl(false);

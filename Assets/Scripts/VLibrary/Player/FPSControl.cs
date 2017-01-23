@@ -5,17 +5,16 @@ using UnityEngine;
 namespace VLibrary {
     public class FPSControl : MonoBehaviour {
 
-        public float speed = 4f;
-        public float sensitivity = 10f;
+        public Camera head;
+        public float speed = 5f;
+        public float sensitivity = 5f;
+
         private Rigidbody body;
-        private Camera head;
         private float rotationX;
         private float rotationY;
         
         void Start() {
             body = GetComponent<Rigidbody>();
-            head = GetComponentInChildren<Camera>();
-
             rotationX = head.transform.eulerAngles.x;
             rotationY = head.transform.eulerAngles.y;
         }
@@ -30,15 +29,16 @@ namespace VLibrary {
 
         void Update() {
             rotationX += Input.GetAxis("Mouse X") * sensitivity;
-            rotationY += Input.GetAxis("Mouse Y") * sensitivity;
+            rotationY -= Input.GetAxis("Mouse Y") * sensitivity;
             rotationY = ClampAngle(rotationY, -90, 90);
             Quaternion rotation = Quaternion.Euler(rotationY, rotationX, 0);
             head.transform.rotation = Quaternion.Lerp(head.transform.rotation, rotation, 0.5f);
         }
 
         private void FixedUpdate() {
-            Vector3 targetVelocity = new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
-            targetVelocity = transform.TransformDirection(targetVelocity);
+            Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            // Moving in the direction of camera
+            targetVelocity = head.transform.TransformDirection(targetVelocity);
             targetVelocity *= speed;
             Vector3 velocity = body.velocity;
             Vector3 velocityChange = (targetVelocity - velocity);

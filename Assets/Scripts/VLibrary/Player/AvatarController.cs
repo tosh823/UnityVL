@@ -12,10 +12,11 @@ namespace VLibrary {
         }
 
         void Update() {
-
+            
         }
 
         public void enableControl(bool enabled) {
+            Cursor.visible = !enabled;
             control.enabled = enabled;
         }
     }
