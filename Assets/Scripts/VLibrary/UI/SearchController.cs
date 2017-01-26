@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace VLibrary {
     public class SearchController : MonoBehaviour {
 
-        public GameObject searchButton;
+        public GameObject inputField;
 
         private bool folded = true;
         private RectTransform rect;
@@ -29,18 +29,17 @@ namespace VLibrary {
         }
 
         private void fold() {
-            searchButton.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.FitInParent;
-            searchButton.GetComponent<RectTransform>().anchorMin = AnchorPresets.StretchAll.min;
-            searchButton.GetComponent<RectTransform>().anchorMax = AnchorPresets.StretchAll.max;
+            GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+            inputField.SetActive(false);
             folded = true;
             rect.sizeDelta = defaultSize;
         }
 
         private void unfold() {
-            searchButton.GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
-            
+            GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
+            inputField.SetActive(true);
             folded = false;
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x + 100f, rect.sizeDelta.y);
+            rect.sizeDelta = new Vector2(Mathf.Abs(100f * rect.sizeDelta.x), rect.sizeDelta.y);
         }
     }
 }
