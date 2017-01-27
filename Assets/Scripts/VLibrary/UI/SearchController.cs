@@ -39,7 +39,7 @@ namespace VLibrary {
             GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
             inputField.SetActive(true);
             folded = false;
-            rect.sizeDelta = new Vector2(Mathf.Abs(100f * rect.sizeDelta.x), rect.sizeDelta.y);
+            rect.sizeDelta = new Vector2(Mathf.Abs(6f * rect.sizeDelta.x), rect.sizeDelta.y);
         }
     }
 }
