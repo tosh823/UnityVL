@@ -7,6 +7,7 @@ namespace VLibrary {
     public class SearchController : MonoBehaviour {
 
         public GameObject inputField;
+        public GameObject scrollView;
 
         private bool folded = true;
         private RectTransform rect;
@@ -31,6 +32,7 @@ namespace VLibrary {
         private void fold() {
             GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
             inputField.SetActive(false);
+            scrollView.SetActive(false);
             folded = true;
             rect.sizeDelta = defaultSize;
         }
