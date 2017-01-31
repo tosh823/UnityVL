@@ -6,13 +6,13 @@ namespace VLibrary {
     public class ItemListView : MonoBehaviour {
 
         public GameObject itemPrefab;
+        public Transform content;
 
-        private Transform content;
         private List<ItemView> items;
 
         void Start() {
-            content = transform.Find("Viewport/Content");
             items = new List<ItemView>();
+            Debug.Log(content);
         }
 
         void Update() {
@@ -21,6 +21,7 @@ namespace VLibrary {
 
         public void Populate(List<Book> books) {
             Clear();
+            items = new List<ItemView>();
             for (int i = 0; i < books.Count; i++) {
                 GameObject newItem = Instantiate(itemPrefab) as GameObject;
                 newItem.name = "BookItem " + i;
@@ -32,10 +33,11 @@ namespace VLibrary {
         }
 
         public void Clear() {
-            foreach (ItemView item in items) {
-                Destroy(item.gameObject);
+            if (items != null) {
+                foreach (ItemView item in items) {
+                    Destroy(item.gameObject);
+                }
             }
-            items = new List<ItemView>();
         }
     }
 }

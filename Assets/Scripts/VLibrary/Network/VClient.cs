@@ -19,16 +19,27 @@ namespace VLibrary {
             request = new WebClient();
         }
 
-        public void Search(string query) {
+        public void SearchAsync(string query) {
             Uri uri = new Uri(host + query);
             request.DownloadStringCompleted += onSearchRequestFinished;
             request.DownloadStringAsync(uri);
         }
 
+        public List<Book> Search(string query) {
+            Uri uri = new Uri(host + query);
+            string json = request.DownloadString(uri);
+            return parseJSON(json);
+        }
+
         private void onSearchRequestFinished(object sender, DownloadStringCompletedEventArgs e) {
             request.DownloadStringCompleted -= onSearchRequestFinished;
             Debug.Log("Received response");
-            JObject responseJson = JObject.Parse(e.Result);
+            List<Book> parsed = parseJSON(e.Result);
+            if (OnSearchFinished != null) OnSearchFinished(parsed);
+        }
+
+        private List<Book> parseJSON(string json) {
+            JObject responseJson = JObject.Parse(json);
             List<Book> parsed = new List<Book>();
             foreach (JToken token in responseJson["data"].Children()) {
                 try {
@@ -37,9 +48,9 @@ namespace VLibrary {
                 }
                 catch (JsonSerializationException exception) {
                     Debug.Log(exception.Message);
-                } 
+                }
             }
-            if (OnSearchFinished != null) OnSearchFinished(parsed);
+            return parsed;
         }
     }
 }

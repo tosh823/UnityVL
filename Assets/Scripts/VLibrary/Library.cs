@@ -9,7 +9,7 @@ namespace VLibrary {
         public AvatarController avatar;
 
         void Start() {
-
+            
         }
 
         void Update() {
@@ -17,6 +17,7 @@ namespace VLibrary {
                 avatar.enableControl(false);
                 orbitCamera.enabled = true;
             }
+            Dispatcher.Instance.InvokePending();
         }
 
         public void changeCamera() {

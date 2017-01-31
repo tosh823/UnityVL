@@ -22,6 +22,8 @@ namespace VLibrary {
             defaultSize = rect.sizeDelta;
             defaultAnchor = new Anchor(rect.anchorMin, rect.anchorMax);
             client = new VClient();
+            inputField.SetActive(false);
+            scrollView.gameObject.SetActive(false);
         }
         
         void Update() {
@@ -29,7 +31,7 @@ namespace VLibrary {
         }
 
         public void OnQueryEntered(string query) {
-            client.Search(query);
+            client.SearchAsync(query);
             client.OnSearchFinished += OpenResults;
         }
 
@@ -54,10 +56,12 @@ namespace VLibrary {
         }
 
         private void OpenResults(List<Book> books) {
-            scrollView.gameObject.SetActive(true);
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, 5f * rect.sizeDelta.y);
-            scrollView.Populate(books);
             client.OnSearchFinished -= OpenResults;
+            Dispatcher.Instance.Invoke(() => {
+                scrollView.gameObject.SetActive(true);
+                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 6f * rect.sizeDelta.y);
+                scrollView.Populate(books);
+            });
         }
     }
 }

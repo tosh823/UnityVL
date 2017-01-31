@@ -20,8 +20,8 @@ namespace VLibrary {
         }
 
         public void UpdateContent(Book book) {
-            titleText.text = book.title;
-            authorText.text = string.Join(" ", book.authors.ToArray());
+            titleText.text = (book.title != null ? book.title : "Unknown");
+            authorText.text = (book.authors != null ? string.Join(" ", book.authors.ToArray()) : "Unknown");
         }
     }
 }
