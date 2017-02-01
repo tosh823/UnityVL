@@ -10,6 +10,7 @@ namespace VLibrary {
 
         public GameObject inputField;
         public ItemListView scrollView;
+        public StatusController statusView;
 
         private bool folded = true;
         private RectTransform rect;
@@ -30,6 +31,9 @@ namespace VLibrary {
 
         public void OnQueryEntered(string query) {
             client.SearchAsync(query);
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, 3f * rect.sizeDelta.y);
+            statusView.gameObject.SetActive(true);
+            statusView.Spin();
             client.OnSearchFinished += OpenResults;
         }
 
@@ -56,8 +60,12 @@ namespace VLibrary {
         private void OpenResults(List<Book> books) {
             client.OnSearchFinished -= OpenResults;
             Dispatcher.Instance.Invoke(() => {
+                // Stop the spinner
+                statusView.Stop();
+                statusView.gameObject.SetActive(false);
+                // Show results
                 scrollView.gameObject.SetActive(true);
-                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 6f * rect.sizeDelta.y);
+                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 2f * rect.sizeDelta.y);
                 scrollView.Populate(books);
             });
         }

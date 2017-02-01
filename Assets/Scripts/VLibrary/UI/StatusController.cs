@@ -19,7 +19,8 @@ namespace VLibrary {
         void Update() {
             if (isSpinning) {
                 Vector3 rotation = spinnerImage.rectTransform.rotation.eulerAngles;
-
+                rotation.z -= angularSpeed * Mathf.Rad2Deg * Time.deltaTime;
+                spinnerImage.rectTransform.eulerAngles = Vector3.Lerp(spinnerImage.rectTransform.rotation.eulerAngles, rotation, 0.5f);
             }
         }
 
@@ -28,7 +29,7 @@ namespace VLibrary {
         }
 
         public void Stop() {
-
+            isSpinning = false;
         }
     }
 }
