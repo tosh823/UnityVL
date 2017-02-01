@@ -33,7 +33,6 @@ namespace VLibrary {
 
         private void onSearchRequestFinished(object sender, DownloadStringCompletedEventArgs e) {
             request.DownloadStringCompleted -= onSearchRequestFinished;
-            Debug.Log("Received response");
             List<Book> parsed = parseJSON(e.Result);
             if (OnSearchFinished != null) OnSearchFinished(parsed);
         }

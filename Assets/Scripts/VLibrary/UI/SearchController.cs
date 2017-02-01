@@ -14,13 +14,11 @@ namespace VLibrary {
         private bool folded = true;
         private RectTransform rect;
         private Vector2 defaultSize;
-        private Anchor defaultAnchor;
         private VClient client;
         
         void Start() {
             rect = GetComponent<RectTransform>();
             defaultSize = rect.sizeDelta;
-            defaultAnchor = new Anchor(rect.anchorMin, rect.anchorMax);
             client = new VClient();
             inputField.SetActive(false);
             scrollView.gameObject.SetActive(false);
