@@ -7,6 +7,7 @@ namespace VLibrary {
     public class ItemListView : MonoBehaviour {
 
         public GameObject itemPrefab;
+        public SearchController parent;
 
         private List<ItemView> items;
 
@@ -30,12 +31,9 @@ namespace VLibrary {
                 newItem.name = "BookItem " + i;
                 newItem.transform.SetParent(content, false);
 
-                /*RectTransform rectTransform = newItem.GetComponent<RectTransform>();
-                float vertShift = rectTransform.rect.height * i;
-                rectTransform.offsetMin = new Vector2(0, vertShift);*/
-
                 ItemView view = newItem.GetComponent<ItemView>();
                 view.UpdateContent(books[i]);
+                view.host = parent;
                 items.Add(view);
             }
         }

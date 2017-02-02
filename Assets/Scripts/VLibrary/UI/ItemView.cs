@@ -9,6 +9,7 @@ namespace VLibrary {
         public Text titleText;
         public Text authorText;
         public Button button;
+        public SearchController host;
 
         private Book content;
 
@@ -22,6 +23,7 @@ namespace VLibrary {
 
         public void OnItemClick() {
             Debug.Log("Book with id " + content.bookId + " clicked");
+            if (host != null) host.OnBookClicked(content.bookId);
         }
 
         public void UpdateContent(Book book) {

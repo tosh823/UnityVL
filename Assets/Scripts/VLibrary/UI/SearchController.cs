@@ -11,6 +11,7 @@ namespace VLibrary {
         public GameObject inputField;
         public ItemListView scrollView;
         public StatusController statusView;
+        public BookView bookView;
 
         private bool folded = true;
         private RectTransform rect;
@@ -41,9 +42,26 @@ namespace VLibrary {
             statusView.Spin();
         }
 
+        public void OnBookClicked(string bookId) {
+            // Launch fetch
+            client.FetchAsync(bookId);
+            client.OnFetchFinished += OpenBook;
+            // Show status bar
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y / 2f);
+            scrollView.gameObject.SetActive(false);
+            statusView.gameObject.SetActive(true);
+            statusView.Spin();
+        }
+
         public void OnIconClick() {
             if (folded) Unfold();
             else Fold();
+        }
+
+        public void OnCloseClick() {
+            // Close BookView and show Results
+            bookView.gameObject.SetActive(false);
+            scrollView.gameObject.SetActive(true);
         }
 
         private void Fold() {
@@ -51,6 +69,7 @@ namespace VLibrary {
             inputField.SetActive(false);
             scrollView.gameObject.SetActive(false);
             statusView.gameObject.SetActive(false);
+            bookView.gameObject.SetActive(false);
             GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
             rect.sizeDelta = defaultSize;
         }
@@ -60,6 +79,20 @@ namespace VLibrary {
             GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
             rect.sizeDelta = new Vector2(Mathf.Abs(6f * rect.sizeDelta.x), rect.sizeDelta.y);
             inputField.SetActive(true);
+        }
+
+        private void OpenBook(Book book) {
+            client.OnFetchFinished -= OpenBook;
+            if (folded) return;
+            Dispatcher.Instance.Invoke(() => {
+                // Stop the spinner
+                statusView.Stop();
+                statusView.gameObject.SetActive(false);
+                // Show results
+                bookView.gameObject.SetActive(true);
+                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 2f * rect.sizeDelta.y);
+                bookView.UpdateContent(book);
+            });
         }
 
         private void OpenResults(List<Book> books) {
