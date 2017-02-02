@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace VLibrary {
     public class OrbitControl : MonoBehaviour {
@@ -29,7 +30,8 @@ namespace VLibrary {
         }
 
         void Update() {
-
+            // Don't record if user is working with UI
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             float zoom = Input.GetAxis("Mouse ScrollWheel");
             if (zoom != 0f) {
                 distance = Mathf.Clamp(distance - (distance * zoom), distanceMin, distanceMax);

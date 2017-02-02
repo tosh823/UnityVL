@@ -26,15 +26,19 @@ namespace VLibrary {
         }
         
         void Update() {
-
+            if (!folded && Input.GetKeyUp(KeyCode.Escape)) {
+                Fold();
+            }
         }
 
         public void OnQueryEntered(string query) {
+            // Launch search
             client.SearchAsync(query);
+            client.OnSearchFinished += OpenResults;
+            // Show status bar
             rect.sizeDelta = new Vector2(rect.sizeDelta.x, 3f * rect.sizeDelta.y);
             statusView.gameObject.SetActive(true);
             statusView.Spin();
-            client.OnSearchFinished += OpenResults;
         }
 
         public void OnIconClick() {
@@ -43,22 +47,24 @@ namespace VLibrary {
         }
 
         private void Fold() {
-            GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+            folded = true;
             inputField.SetActive(false);
             scrollView.gameObject.SetActive(false);
-            folded = true;
+            statusView.gameObject.SetActive(false);
+            GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
             rect.sizeDelta = defaultSize;
         }
 
         private void Unfold() {
-            GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
-            inputField.SetActive(true);
             folded = false;
+            GetComponent<AspectRatioFitter>().aspectMode = AspectRatioFitter.AspectMode.None;
             rect.sizeDelta = new Vector2(Mathf.Abs(6f * rect.sizeDelta.x), rect.sizeDelta.y);
+            inputField.SetActive(true);
         }
 
         private void OpenResults(List<Book> books) {
             client.OnSearchFinished -= OpenResults;
+            if (folded) return;
             Dispatcher.Instance.Invoke(() => {
                 // Stop the spinner
                 statusView.Stop();
