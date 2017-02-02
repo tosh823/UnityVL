@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Net;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace VLibrary {
 
         public VClient() {
             request = new WebClient();
+            request.Encoding = Encoding.UTF8;
         }
 
         public void SearchAsync(string query) {
