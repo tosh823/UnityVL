@@ -12,14 +12,15 @@ namespace VLibrary {
         }
 
         public string title;
-        public string cover; // 
-        public string author; //
+        public string cover; 
+        public string author; 
         public string type;
+        public string bookId;
         public string language;
         public string publisher;
-        public string description; //
-        public string isbn; //
-        public List<Location> locations; //
+        public string description;
+        public string isbn;
+        public List<Location> locations; 
 
         public Book() {
 

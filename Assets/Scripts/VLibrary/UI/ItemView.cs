@@ -8,6 +8,7 @@ namespace VLibrary {
 
         public Text titleText;
         public Text authorText;
+        public Button button;
 
         private Book content;
 
@@ -17,6 +18,10 @@ namespace VLibrary {
 
         void Update() {
 
+        }
+
+        public void OnItemClick() {
+            Debug.Log("Book with id " + content.bookId + " clicked");
         }
 
         public void UpdateContent(Book book) {
