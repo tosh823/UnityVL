@@ -23,7 +23,7 @@ namespace VLibrary {
         public List<Location> locations; 
 
         public Book() {
-
+            locations = new List<Location>();
         }
     }
 }

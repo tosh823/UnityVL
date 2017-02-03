@@ -47,7 +47,6 @@ namespace VLibrary {
         private void OnFetchRequestFinished(object sender, DownloadStringCompletedEventArgs e) {
             request.DownloadStringCompleted -= OnFetchRequestFinished;
             Book parsed = ParseBookDetailsJSON(e.Result);
-            Debug.Log(parsed);
             if (OnFetchFinished != null) OnFetchFinished(parsed);
         }
 
@@ -62,7 +61,6 @@ namespace VLibrary {
             Book result = new Book();
             try {
                 result = JsonConvert.DeserializeObject<Book>(responseJson["data"].ToString());
-                Debug.Log(result);
             }
             catch (JsonSerializationException exception) {
                 Debug.Log(exception.Message);

@@ -22,7 +22,6 @@ namespace VLibrary {
         }
 
         public void OnItemClick() {
-            Debug.Log("Book with id " + content.bookId + " clicked");
             if (host != null) host.OnBookClicked(content.bookId);
         }
 
