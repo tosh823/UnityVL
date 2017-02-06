@@ -6,6 +6,8 @@ using UnityEngine.UI;
 namespace VLibrary {
     public class BookView : MonoBehaviour {
 
+        public SearchController parent;
+
         public Image coverImage;
         public Text titleText;
         public Text authorText;
@@ -54,7 +56,7 @@ namespace VLibrary {
         }
 
         public void OnButtonClick() {
-
+            parent.OnFindClicked(content.locations[0]);
         }
     }
 }

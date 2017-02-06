@@ -34,7 +34,7 @@ namespace VLibrary {
 
         public void OnQueryEntered(string query) {
             // Launch search
-            client.SearchAsync(query);
+            client.Search(query);
             client.OnSearchFinished += OpenResults;
             // Show status bar
             rect.sizeDelta = new Vector2(rect.sizeDelta.x, 3f * rect.sizeDelta.y);
@@ -44,13 +44,18 @@ namespace VLibrary {
 
         public void OnBookClicked(string bookId) {
             // Launch fetch
-            client.FetchAsync(bookId);
+            client.Fetch(bookId);
             client.OnFetchFinished += OpenBook;
             // Show status bar
             rect.sizeDelta = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y / 2f);
             scrollView.gameObject.SetActive(false);
             statusView.gameObject.SetActive(true);
             statusView.Spin();
+        }
+
+        public void OnFindClicked(Book.Location location) {
+            client.FindPathToBook(location);
+            client.OnBookLocationFound += OnShelfsFound;
         }
 
         public void OnIconClick() {
@@ -107,6 +112,24 @@ namespace VLibrary {
                 rect.sizeDelta = new Vector2(rect.sizeDelta.x, 2f * rect.sizeDelta.y);
                 scrollView.Populate(books);
             });
+        }
+
+        private void OnShelfsFound(List<string> shelfs) {
+            client.OnBookLocationFound -= OnShelfsFound;
+            if (shelfs.Count > 0) {
+                string from = "F1P1";
+                string to = shelfs[0];
+                client.FindRoute(from, to);
+                client.OnRouteFound += OnRouteFound;
+            }
+            else {
+                Debug.Log("No possible shelfs");
+            }
+        }
+
+        private void OnRouteFound(List<string> route) {
+            client.OnRouteFound -= OnRouteFound;
+            Debug.Log(string.Join(" ", route.ToArray()));
         }
     }
 }
