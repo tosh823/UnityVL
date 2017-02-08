@@ -130,6 +130,9 @@ namespace VLibrary {
         private void OnRouteFound(List<string> route) {
             client.OnRouteFound -= OnRouteFound;
             Debug.Log(string.Join(" ", route.ToArray()));
+            Dispatcher.Instance.Invoke(() => {
+                Library.Instance.navigator.VisualizeRoute(route);
+            });
         }
     }
 }

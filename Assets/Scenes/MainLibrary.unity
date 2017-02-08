@@ -39474,6 +39474,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1163541632}
+  - component: {fileID: 1163541633}
   m_Layer: 0
   m_Name: Navigation
   m_TagString: Untagged
@@ -39496,6 +39497,17 @@ Transform:
   m_Father: {fileID: 1749737955}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1163541633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1163541631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4907e0e4fe1ef4582d5ed8585f5861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1165705914
 GameObject:
   m_ObjectHideFlags: 0
@@ -59869,6 +59881,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orbitCamera: {fileID: 1102321630}
   avatar: {fileID: 2131895510}
+  navigator: {fileID: 1163541633}
+  UI: {fileID: 1414412193}
 --- !u!4 &1790506167
 Transform:
   m_ObjectHideFlags: 0

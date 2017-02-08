@@ -5,8 +5,21 @@ using UnityEngine;
 namespace VLibrary {
     public class Library : MonoBehaviour {
 
+        public static Library Instance = null;
         public Camera orbitCamera;
         public AvatarController avatar;
+        public Pathfinder navigator;
+        public GameObject UI;
+
+        void Awake() {
+            if (Instance == null) {
+                Instance = this;
+            }
+            else if (Instance != this) {
+                Destroy(gameObject);
+            }
+            DontDestroyOnLoad(gameObject);
+        }
 
         void Start() {
             
