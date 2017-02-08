@@ -27,21 +27,30 @@ namespace VLibrary {
 
         void Update() {
             if (Input.GetKeyUp(KeyCode.Escape) && !orbitCamera.enabled) {
-                avatar.enableControl(false);
-                orbitCamera.enabled = true;
+                enableOrbitControl();
             }
             Dispatcher.Instance.InvokePending();
         }
 
         public void changeCamera() {
             if (orbitCamera.enabled) {
-                avatar.enableControl(true);
-                orbitCamera.enabled = false;
+                enableAvatarControl();
             }
             else {
-                avatar.enableControl(false);
-                orbitCamera.enabled = true;
+                enableOrbitControl();
             }
+        }
+
+        private void enableOrbitControl() {
+            UI.SetActive(true);
+            avatar.enableControl(false);
+            orbitCamera.enabled = true;
+        }
+
+        private void enableAvatarControl() {
+            UI.SetActive(false);
+            avatar.enableControl(true);
+            orbitCamera.enabled = false;
         }
     }
 }
