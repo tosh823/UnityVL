@@ -25,7 +25,6 @@ namespace VLibrary {
             line.startWidth = 0.5f;
             line.endWidth = 0.5f;
             line.numPositions = route.Count;
-            //line.material = new Material(Shader.Find("Particles/Additive"));
             for (int i = 0; i < route.Count; i++) {
                 string shelf = route[i];
                 WayPoint node = Array.Find(map, x => x.gameObject.name == shelf);
@@ -33,6 +32,7 @@ namespace VLibrary {
                     line.SetPosition(i, node.transform.position);
                 }
             }
+            RemoveLine(30);
         }
 
         public WayPoint GetClosestTo(Vector3 position) {
@@ -46,6 +46,16 @@ namespace VLibrary {
                 }
             }
             return closest;
+        }
+
+        public void RemoveLine(float delay) {
+            StartCoroutine(RemoveLineAfter(delay));
+        }
+
+        private IEnumerator RemoveLineAfter(float seconds) {
+            yield return new WaitForSeconds(seconds);
+            LineRenderer line = gameObject.GetComponent<LineRenderer>();
+            if (line != null) Destroy(line);
         }
     }
 }
