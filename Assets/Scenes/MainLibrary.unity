@@ -37727,10 +37727,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 0.5
-  speedX: 10
-  speedY: 10
-  minY: 0
-  maxY: 90
+  speedX: 5
+  speedY: 5
+  minX: -360
+  maxX: 360
+  minY: 5
+  maxY: 80
   minZoom: 3
   maxZoom: 0.25
 --- !u!1 &1105006187
