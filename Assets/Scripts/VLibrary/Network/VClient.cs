@@ -22,7 +22,8 @@ namespace VLibrary {
         public delegate void FetchRequesthandler(Book book);
         public event FetchRequesthandler OnFetchFinished;
 
-        private string host = "http://localhost:3000";
+        private string localHost = "http://localhost:3000";
+        private string host = "http://95.85.62.204:3000";
         private string search = "/search?title=";
         private string fetch = "/search/book?id=";
         private string route = "/map?from=";
