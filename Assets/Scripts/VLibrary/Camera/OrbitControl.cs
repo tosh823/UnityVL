@@ -24,11 +24,10 @@ namespace VLibrary {
         private float rotationY;
 
         void Start() {
+            target = Vector3.zero;
             rotationX = transform.eulerAngles.y;
             rotationY = transform.eulerAngles.x;
-            distance = Vector3.Distance(target, transform.position);
-            distanceMin = distance / minZoom;
-            distanceMax = distance / maxZoom;
+            CalculateDistances();
         }
 
         void Update() {
@@ -41,7 +40,7 @@ namespace VLibrary {
                 Vector3 position = transform.rotation * negDistance + target;
                 transform.position = position;
             }
-
+            // Left mouse button controls rotation
             if (Input.GetMouseButton(0)) {
                 rotationX += Input.GetAxis("Mouse X") * speedX;
                 rotationY -= Input.GetAxis("Mouse Y") * speedY;
@@ -54,12 +53,28 @@ namespace VLibrary {
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, smooth);
                 transform.position = Vector3.Lerp(transform.position, position, smooth);
             }
+            // Right mouse button controls position
+            if (Input.GetMouseButton(1)) {
+                target += transform.right * Input.GetAxis("Mouse X") * speedX;
+                target += transform.forward * Input.GetAxis("Mouse Y") * speedY;
+                target.y = 0f;
+                CalculateDistances();
+                Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
+                Vector3 position = transform.rotation * negDistance + target;
+                transform.position = Vector3.Lerp(transform.position, position, smooth);
+            }
         }
 
-        public static float ClampAngle(float angle, float min, float max) {
+        private float ClampAngle(float angle, float min, float max) {
             if (angle <= -360f) angle += 360f;
             if (angle >= 360f) angle -= 360f;
             return Mathf.Clamp(angle, min, max);
+        }
+
+        private void CalculateDistances() {
+            distance = Vector3.Distance(target, transform.position);
+            distanceMin = distance / minZoom;
+            distanceMax = distance / maxZoom;
         }
     }
 }
