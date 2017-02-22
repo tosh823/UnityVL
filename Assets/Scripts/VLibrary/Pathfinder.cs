@@ -19,7 +19,7 @@ namespace VLibrary {
 
         }
 
-        public void VisualizeRoute(List<string> route) {
+        public Vector3 VisualizeRoute(List<string> route) {
             LineRenderer line = gameObject.AddComponent<LineRenderer>();
             line.sharedMaterial = lineMaterial;
             line.startWidth = 0.5f;
@@ -32,7 +32,9 @@ namespace VLibrary {
                     line.SetPosition(i, node.transform.position);
                 }
             }
+            WayPoint last = Array.Find(map, x => x.gameObject.name == route[route.Count - 1]);
             RemoveLine(30);
+            return last.transform.position;
         }
 
         public WayPoint GetClosestTo(Vector3 position) {

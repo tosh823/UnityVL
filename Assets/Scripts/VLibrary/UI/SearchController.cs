@@ -17,6 +17,7 @@ namespace VLibrary {
         private RectTransform rect;
         private Vector2 defaultSize;
         private VClient client;
+        private Book activeBook;
         
         void Start() {
             rect = GetComponent<RectTransform>();
@@ -53,8 +54,9 @@ namespace VLibrary {
             statusView.Spin();
         }
 
-        public void OnFindClicked(Book.Location location) {
-            client.FindPathToBook(location);
+        public void OnFindClicked(Book book, int locNumber) {
+            activeBook = book;
+            client.FindPathToBook(book.locations[locNumber]);
             client.OnBookLocationFound += OnShelfsFound;
         }
 
@@ -131,7 +133,10 @@ namespace VLibrary {
             client.OnRouteFound -= OnRouteFound;
             Debug.Log(string.Join(" ", route.ToArray()));
             Dispatcher.Instance.Invoke(() => {
-                Library.Instance.navigator.VisualizeRoute(route);
+                Vector3 destination = Library.Instance.navigator.VisualizeRoute(route);
+                destination.y += 3f;
+                GameObject ingame = Instantiate(Resources.Load("UI/BookViewInGame") as GameObject, destination, Quaternion.identity);
+                ingame.GetComponent<BookViewInGame>().UpdateContent(activeBook);
             });
         }
     }

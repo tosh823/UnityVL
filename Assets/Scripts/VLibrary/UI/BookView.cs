@@ -56,7 +56,7 @@ namespace VLibrary {
         }
 
         public void OnButtonClick() {
-            parent.OnFindClicked(content.locations[0]);
+            parent.OnFindClicked(content, 0);
         }
     }
 }
