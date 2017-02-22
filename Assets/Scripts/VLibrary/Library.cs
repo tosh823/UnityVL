@@ -9,7 +9,7 @@ namespace VLibrary {
         public Camera orbitCamera;
         public AvatarController avatar;
         public Pathfinder navigator;
-        public GameObject UI;
+        public UIController UI;
 
         void Awake() {
             if (Instance == null) {
@@ -42,13 +42,13 @@ namespace VLibrary {
         }
 
         private void enableOrbitControl() {
-            UI.SetActive(true);
+            UI.ShowOrbitalUI();
             avatar.enableControl(false);
             orbitCamera.enabled = true;
         }
 
         private void enableAvatarControl() {
-            UI.SetActive(false);
+            UI.HideOrbitalUI();
             avatar.enableControl(true);
             orbitCamera.enabled = false;
         }

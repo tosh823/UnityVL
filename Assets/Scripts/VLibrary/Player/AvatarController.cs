@@ -5,7 +5,7 @@ using UnityEngine;
 namespace VLibrary {
     public class AvatarController : MonoBehaviour {
 
-        public float interactionDistance = 10f;
+        public float interactionDistance = 2f;
 
         private FPSControl control;
         private Camera head;
@@ -20,8 +20,15 @@ namespace VLibrary {
             Ray ray = head.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             if (Physics.Raycast(ray, out hit, interactionDistance)) {
                 Transform objectHit = hit.transform;
-                if (objectHit.GetComponent<LampController>() != null && Input.GetKeyUp(KeyCode.E)) {
-                    objectHit.GetComponent<LampController>().Switch();
+                if (objectHit.GetComponent<LampController>() != null) {
+                    // Show info message
+                    Library.Instance.UI.ShowMessage("Press E to switch a lamp");
+                    if (Input.GetKeyUp(KeyCode.E)) {
+                        objectHit.GetComponent<LampController>().Switch();
+                    }
+                }
+                else {
+                    Library.Instance.UI.HideMessage();
                 }
             }
         }
