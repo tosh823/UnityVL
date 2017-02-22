@@ -70131,21 +70131,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 4662669369596934, guid: 5a45397b1bbb4454a83f7c04e39a460a, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 39.085735
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662669369596934, guid: 5a45397b1bbb4454a83f7c04e39a460a, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 39.085735
-      objectReference: {fileID: 0}
     - target: {fileID: 1989541947525660, guid: 5a45397b1bbb4454a83f7c04e39a460a, type: 2}
       propertyPath: m_Name
       value: MiniLamp (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662669369596934, guid: 5a45397b1bbb4454a83f7c04e39a460a, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 39.08579
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a45397b1bbb4454a83f7c04e39a460a, type: 2}
@@ -74939,6 +74927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4205ea7e76302f04caa18fad517c3b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionDistance: 10
 --- !u!1 &2133082278
 GameObject:
   m_ObjectHideFlags: 0
