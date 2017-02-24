@@ -6,13 +6,12 @@ namespace VLibrary {
     public class AvatarController : MonoBehaviour {
 
         public float interactionDistance = 2f;
+        public Camera head;
 
         private FPSControl control;
-        private Camera head;
 
         void Start() {
             control = GetComponent<FPSControl>();
-            head = GetComponentInChildren<Camera>();
         }
 
         void Update() {

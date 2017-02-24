@@ -6,6 +6,7 @@ namespace VLibrary {
     public class Library : MonoBehaviour {
 
         public static Library Instance = null;
+        public Camera activeCamera; 
         public Camera orbitCamera;
         public AvatarController avatar;
         public Pathfinder navigator;
@@ -45,12 +46,14 @@ namespace VLibrary {
             UI.ShowOrbitalUI();
             avatar.enableControl(false);
             orbitCamera.enabled = true;
+            activeCamera = orbitCamera;
         }
 
         private void enableAvatarControl() {
             UI.HideOrbitalUI();
             avatar.enableControl(true);
             orbitCamera.enabled = false;
+            activeCamera = avatar.head;
         }
     }
 }

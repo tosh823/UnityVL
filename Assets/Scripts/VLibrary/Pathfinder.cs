@@ -33,8 +33,12 @@ namespace VLibrary {
                 }
             }
             WayPoint last = Array.Find(map, x => x.gameObject.name == route[route.Count - 1]);
-            RemoveLine(30);
             return last.transform.position;
+        }
+
+        public Vector3 VisualizeRouteAndRemove(List<string> route, float time) {
+            RemoveLine(time);
+            return VisualizeRoute(route);
         }
 
         public WayPoint GetClosestTo(Vector3 position) {

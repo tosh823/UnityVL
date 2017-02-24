@@ -63185,6 +63185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb09eaa01e2f3574bbdc585a969d4d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCamera: {fileID: 1102321630}
   orbitCamera: {fileID: 1102321630}
   avatar: {fileID: 2131895510}
   navigator: {fileID: 1163541633}
@@ -75176,6 +75177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 2
+  head: {fileID: 1658015713}
 --- !u!1 &2133082278
 GameObject:
   m_ObjectHideFlags: 0

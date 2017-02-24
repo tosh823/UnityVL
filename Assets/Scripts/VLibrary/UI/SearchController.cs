@@ -133,10 +133,12 @@ namespace VLibrary {
             client.OnRouteFound -= OnRouteFound;
             Debug.Log(string.Join(" ", route.ToArray()));
             Dispatcher.Instance.Invoke(() => {
-                Vector3 destination = Library.Instance.navigator.VisualizeRoute(route);
+                float time = 60f;
+                Vector3 destination = Library.Instance.navigator.VisualizeRouteAndRemove(route, time);
+                // Show InGame UI
                 destination.y += 3f;
                 GameObject ingame = Instantiate(Resources.Load("UI/BookViewInGame") as GameObject, destination, Quaternion.identity);
-                ingame.GetComponent<BookViewInGame>().UpdateContent(activeBook);
+                ingame.GetComponent<BookViewInGame>().ShowContent(activeBook, time);
             });
         }
     }
