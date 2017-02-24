@@ -14,6 +14,7 @@ namespace VLibrary {
         public BookView bookView;
 
         private bool folded = true;
+        private bool searching = false;
         private RectTransform rect;
         private Vector2 defaultSize;
         private VClient client;
@@ -34,21 +35,28 @@ namespace VLibrary {
         }
 
         public void OnQueryEntered(string query) {
+            if (searching) return;
+            // Set other widgets invisible
+            scrollView.gameObject.SetActive(false);
+            bookView.gameObject.SetActive(false);
             // Launch search
             client.Search(query);
             client.OnSearchFinished += OpenResults;
+            searching = true;
             // Show status bar
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, 3f * rect.sizeDelta.y);
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, 3f * defaultSize.y);
             statusView.gameObject.SetActive(true);
             statusView.Spin();
         }
 
         public void OnBookClicked(string bookId) {
+            if (searching) return;
             // Launch fetch
             client.Fetch(bookId);
             client.OnFetchFinished += OpenBook;
+            searching = true;
             // Show status bar
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, rect.sizeDelta.y / 2f);
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, 3f * defaultSize.y);
             scrollView.gameObject.SetActive(false);
             statusView.gameObject.SetActive(true);
             statusView.Spin();
@@ -89,6 +97,7 @@ namespace VLibrary {
         }
 
         private void OpenBook(Book book) {
+            searching = false;
             client.OnFetchFinished -= OpenBook;
             if (folded) return;
             Dispatcher.Instance.Invoke(() => {
@@ -97,12 +106,13 @@ namespace VLibrary {
                 statusView.gameObject.SetActive(false);
                 // Show results
                 bookView.gameObject.SetActive(true);
-                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 2f * rect.sizeDelta.y);
+                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 6f * defaultSize.y);
                 bookView.UpdateContent(book);
             });
         }
 
         private void OpenResults(List<Book> books) {
+            searching = false;
             client.OnSearchFinished -= OpenResults;
             if (folded) return;
             Dispatcher.Instance.Invoke(() => {
@@ -111,7 +121,7 @@ namespace VLibrary {
                 statusView.gameObject.SetActive(false);
                 // Show results
                 scrollView.gameObject.SetActive(true);
-                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 2f * rect.sizeDelta.y);
+                rect.sizeDelta = new Vector2(rect.sizeDelta.x, 6f * defaultSize.y);
                 scrollView.Populate(books);
             });
         }
