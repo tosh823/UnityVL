@@ -24,7 +24,7 @@ namespace VLibrary {
             line.sharedMaterial = lineMaterial;
             line.startWidth = 0.5f;
             line.endWidth = 0.5f;
-            line.numPositions = route.Count;
+            line.positionCount = route.Count;
             for (int i = 0; i < route.Count; i++) {
                 string shelf = route[i];
                 WayPoint node = Array.Find(map, x => x.gameObject.name == shelf);
